@@ -1,37 +1,24 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Card from './Card';
 import Input from './Input';
 import Button from './button';
-import Card from './Card';
 
-export default function LoginForm() {
-  const [form, setForm] = useState({ email: '', password: '' });
+function LoginForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    const savedEmail = localStorage.getItem('email');
-    const savedPassword = localStorage.getItem('password');
-    if (savedEmail && savedPassword) {
-      setForm({ email: savedEmail, password: savedPassword });
-    }
-  }, []);
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setError('');
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!form.email || !form.password) {
-      setError('All fields are required.');
+    if (!email || !password) {
+      setError('All fields are required!');
       return;
     }
 
-    localStorage.setItem('email', form.email);
-    localStorage.setItem('password', form.password);
-
-    console.log('Saved form data:', form);
+    setError('');
+    console.log('Form Data:', { email, password });
   };
 
   return (
@@ -40,25 +27,28 @@ export default function LoginForm() {
         <Input
           label='Email'
           type='email'
-          name='email'
-          value={form.email}
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder='Enter your email'
         />
         <Input
           label='Password'
           type='password'
-          name='password'
-          value={form.password}
-          onChange={handleChange}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder='Enter your password'
         />
-        {error && <p className='error'>{error}</p>}
+
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+
         <Button
           label='Login'
           variant='primary'
+          disabled={!email || !password}
         />
       </form>
     </Card>
   );
 }
+
+export default LoginForm;

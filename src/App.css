@@ -5,14 +5,14 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f4f4f4;
+  background: #177683;
 }
 
 .card {
   background: white;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(194, 6, 153, 0.1);
 }
 
 .card-title {
